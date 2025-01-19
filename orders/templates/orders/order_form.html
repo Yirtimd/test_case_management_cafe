@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Добавить заказ</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="table_number">Номер стола:</label>
+    <input type="number" name="table_number" required><br><br>
+
+    <h3>Выберите блюда:</h3>
+    <div id="dishes">
+        {% for dish in dishes %}
+        <div>
+            <input type="checkbox" name="dishes" value="{{ dish.id }}" onchange="toggleQuantityInput(this)">
+            <label>{{ dish.name }} ({{ dish.price }} руб.)</label>
+            <input type="number" name="quantities" placeholder="Количество" min="1" disabled required>
+        </div>
+        {% endfor %}
+    </div>
+
+    
+    <script>
+        // Скрипт для активации/деактивации количества при выборе блюда
+        function toggleQuantityInput(checkbox) {
+            const quantityInput = checkbox.parentElement.querySelector('input[name="quantities"]');
+            if (checkbox.checked) {
+                quantityInput.disabled = false;
+            } else {
+                quantityInput.disabled = true;
+                quantityInput.value = ""; // Очистить значение
+            }
+        }
+    </script>    
+
+    <button type="submit">Создать заказ</button>
+</form>
+{% endblock %}
+

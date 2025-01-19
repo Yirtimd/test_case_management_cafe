@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Выручка за смену{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Выручка за смену</h1>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h4 class="card-title">Общая выручка: {{ total_revenue }} руб.</h4>
+    </div>
+</div>
+
+<h2>Оплаченные заказы</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID заказа</th>
+            <th>Номер стола</th>
+            <th>Список блюд</th>
+            <th>Общая стоимость</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in paid_orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.table_number }}</td>
+            <td>
+                <ul>
+                    {% for item in order.get_items %}
+                    <li>{{ item.name }}: {{ item.quantity }} x {{ item.price }} руб.</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ order.total_price }} руб.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'order_list' %}" class="btn btn-primary">Назад к заказам</a>
+{% endblock %}
