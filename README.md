@@ -16,7 +16,7 @@ Frontend: HTML, Bootstrap 5 для стилизации.
 Установка и запуск проекта
 1. Клонируйте репозиторий
 <pre> git clone https://github.com/username/cafe-management-system.git
-      cd cafe-management-system</pre>
+cd cafe-management-system</pre>
 
 
 
